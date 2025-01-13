@@ -1,7 +1,7 @@
 ---
 - name: deploy web application
   hosts: webservers
-  becom: yes
+  become: yes
 
   vars:
     nginx_version: "1.18"
