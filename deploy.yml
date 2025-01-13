@@ -1,0 +1,38 @@
+---
+- name: deploy web application
+  hosts: webservers
+  becom: yes
+
+  vars:
+    nginx_version: "1.18"
+
+
+  tasks:
+    - name: install nginx
+      apt:
+        name: "nginx={{nginx_version}}"
+        state: present
+
+
+    - name: comy HTML file to Nginx
+      copy:
+        src: index.html
+        dest: /usr/share/nginx/html/html.html
+        mode: '0644'
+
+
+    - name: copy all the file in src
+      copy:
+        src: src/
+        dest: /usr/share/nginx/html/
+        recurse: yes
+        mode: '0644'
+
+    - name: Check Ngiinx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+
+
